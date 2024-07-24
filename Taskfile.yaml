@@ -1,0 +1,31 @@
+version: '3'
+
+tasks:
+  run:
+    cmds:
+      - go run main.go
+
+  db:up:
+    desc: Start or update PostgreSQL container
+    cmds:
+      - docker-compose up -d # Detached mode
+
+  db:down:
+    desc: Stop and remove PostgreSQL container
+    cmds:
+      - docker-compose down 
+  
+  db:stop:
+    desc: Stop PostgreSQL container
+    cmds:
+      - docker-compose stop 
+  
+  db:conn:
+    desc: Connect to PostgreSQL container
+    cmds:
+      - docker exec -it psql-15 psql -U simplebank
+  
+  db:sh:
+    desc: Connect to PostgreSQL container in shell
+    cmds:
+      - docker exec -it psql-15 /bin/sh
