@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:15-alpine
-    container_name: psql-15
+    image: postgres:13-alpine
+    container_name: simplebank
     environment:
       - POSTGRES_USER=simplebank
       - POSTGRES_PASSWORD=simplebank 

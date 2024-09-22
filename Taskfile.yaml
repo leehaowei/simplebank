@@ -23,9 +23,29 @@ tasks:
   db:conn:
     desc: Connect to PostgreSQL container
     cmds:
-      - docker exec -it psql-15 psql -U simplebank
+      - docker exec -it simplebank psql -U simplebank
   
   db:sh:
     desc: Connect to PostgreSQL container in shell
     cmds:
-      - docker exec -it psql-15 /bin/sh
+      - docker exec -it simplebank /bin/sh
+
+  migrateup:
+    cmds:
+      - goose up
+
+  migratedown:
+    cmds:
+      - goose down
+  
+  sqlc:
+    cmds:
+    - sqlc generate
+  
+  testmain:
+    cmds:
+    - go test ./db/sqlc -run ^TestMain$
+
+  test:
+    cmds:
+    - go test -v -cover ./...

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-var ConnStr = FetchEnv("PGDATABASE")
+var ConnStr = FetchEnv("DATABSE_URL")
 
 func main() {
 	fmt.Println(ConnStr)
