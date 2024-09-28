@@ -12,6 +12,10 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     environment: simplebank
+    env:
+      GOOSE_DRIVER: ${{ vars.GOOSE_DRIVER }}
+      GOOSE_DBSTRING: ${{ vars.GOOSE_DBSTRING }}
+      GOOSE_MIGRATION_DIR: ${{ vars.GOOSE_MIGRATION_DIR }}
 
     services:
       postgres:
@@ -51,12 +55,6 @@ jobs:
     
     - name: Run migration
       run: task migrateup
-      env:
-          PGDATABASE: ${{ vars.PGDATABASE }}
-          GOOSE_MIGRATION_DIR: ${{ vars.GOOSE_MIGRATION_DIR }}
-          GOOSE_DRIVER: ${{ vars.GOOSE_DRIVER }}
-          DATABASE_URL: ${{ vars.DATABASE_URL }}
-          GOOSE_DBSTRING: ${{ vars.DATABASE_URL }}
 
     - name: Test
       run: task test
