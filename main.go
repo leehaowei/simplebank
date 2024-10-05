@@ -1,15 +1,35 @@
 package main
 
 import (
-	"fmt"
+	"database/sql"
 	"log"
 	"os"
+
+	"github.com/leehaowei/simplebank/api"
+	db "github.com/leehaowei/simplebank/db/sqlc"
+	_ "github.com/lib/pq"
 )
 
-var ConnStr = FetchEnv("DATABSE_URL")
+const serverAddress = "0.0.0.0:8080"
+
+var (
+	dbDriver = FetchEnv("GOOSE_DRIVER")
+	dbSource = FetchEnv("DATABASE_URL")
+)
 
 func main() {
-	fmt.Println(ConnStr)
+	conn, err := sql.Open(dbDriver, dbSource)
+	if err != nil {
+		log.Fatal("cannot connect to db:", err)
+	}
+
+	store := db.NewStore(conn)
+	server := api.NewServer(store)
+
+	err = server.Start(serverAddress)
+	if err != nil {
+		log.Fatal("cannot start server:", err)
+	}
 }
 
 func FetchEnv(key string) string {

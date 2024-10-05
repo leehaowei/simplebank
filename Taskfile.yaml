@@ -49,3 +49,7 @@ tasks:
   test:
     cmds:
     - go test -v -cover ./...
+  
+  server:
+    cmds:
+    - go run main.go
