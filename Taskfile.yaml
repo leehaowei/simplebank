@@ -53,3 +53,7 @@ tasks:
   server:
     cmds:
     - go run main.go
+  
+  mock:
+    cmds:
+    - mockgen -package mockdb -destination db/mock/store.go github.com/leehaowei/simplebank/db/sqlc Store
